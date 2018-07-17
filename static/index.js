@@ -1,17 +1,14 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
 
-        document.querySelector('#channelHeader').style.color = this.value;
-
-
-        // Change the color of the Channels header
-        document.querySelector('#channelHeader').style.color = dataset.color
+        // Change the color of the Channels header when dropdown changes
+        document.querySelectorAll('#channelHeader, #typeinUsername').style.color = "#c6c6c6";
 
         // By default, submit button is disabled
         document.querySelector('#submit').disabled = true;
 
         // Enable button only if there is text in the input field
         document.querySelector('#userform').onkeyup = () => {
-            if (document.querySelector('#newusername').value.length > 0)
+            if (document.querySelector('#newUsername').value.length > 0)
                 document.querySelector('#submit').disabled = false;
             else
                 document.querySelector('#submit').disabled = true;
@@ -21,63 +18,43 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Create new username for local storage
             const username = document.createElement('username')
-            username = document.querySelector('#newusername').value;
+            username = document.querySelector('#newUsername').value;
 
             // Set new item to local storage
             localStorage.setItem('username', username)
 
             // Hide Button and Header
-            document.querySelector('#typeinusername').style.display = "none";
+            document.querySelector('#typeinUsername').style.display = "none";
             document.querySelector('#userform').style.display = "none";
             // Stop form from submitting
             return false;
         };
-    }
+
                 // By default, submit button is disabled
-                document.querySelector('#submit').disabled = true;
+                document.querySelector('#channelSubmit').disabled = true;
 
                 // Enable button only if there is text in the input field
-                document.querySelector('#task').onkeyup = () => {
-                    if (document.querySelector('#task').value.length > 0)
-                        document.querySelector('#submit').disabled = false;
+                document.querySelector('#newChannel').onkeyup = () => {
+                    if (document.querySelector('#newChannel').value.length > 0)
+                        document.querySelector('#channelSubmit').disabled = false;
                     else
-                        document.querySelector('#submit').disabled = true;
+                        document.querySelector('#channelSubmit').disabled = true;
                 };
 
-                document.querySelector('#new-task').onsubmit = () => {
+                document.querySelector('#channelAdd').onsubmit = () => {
 
                     // Create new item for list
                     const li = document.createElement('li');
-                    li.innerHTML = document.querySelector('#task').value;
+                    li.innerHTML = document.querySelector('#newChannel').value;
 
                     // Add new item to task list
-                    document.querySelector('#tasks').append(li);
+                    document.querySelector('#channelList').append(li);
 
                     // Clear input field and disable button again
-                    document.querySelector('#task').value = '';
-                    document.querySelector('#submit').disabled = true;
+                    document.querySelector('#newChannel').value = '';
+                    document.querySelector('#channelSubmit').disabled = true;
 
                     // Stop form from submitting
                     return false;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    });
+                };
+});
