@@ -1,0 +1,32 @@
+/*body*/
+/*{*/
+/*    font-family: Arial, Helvetica, sans-serif;*/
+/*    font-size: 14px;*/
+/*    line-height: 1.6;*/
+/*}*/
+
+/*.button*/
+/*{*/
+/*    background: #c6c6c6;*/
+/*    padding: 1em 2em;*/
+/*    color: #ffffff;*/
+/*    border: 0;*/
+/*}*/
+
+/*.button:hover*/
+/*{*/
+/*    background: #00a7be;*/
+/*}*/
+
+/*.modal*/
+/*{*/
+    /*display: none;*/
+/*    position: fixed;*/
+/*    z-index: 1;*/
+/*    left: 0;*/
+/*    top: 0;*/
+/*    height: 100%;*/
+/*    width: 100%;*/
+/*    overflow: auto;*/
+/*    background-color: rgba(0, 0, 0, 0.5);*/
+/*}*/
