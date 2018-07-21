@@ -9,8 +9,19 @@ app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 socketio = SocketIO(app)
 
 # list of all channels
-channel_list = ['general']
+channel_dict = {}
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return render_template("index.html", channel_dict = channel_dict)
+
+@socketio.on("addChannel")
+def channel(data):
+    channelName = data["channelName"]
+    global channel_dict
+    channel_dict[channelName] = []
+    emit("channel_dict", channel_dict, broadcast=True)
+
+@socketio.on("addUsername")
+def usernameAdd(data):
+    emit("username", username, broadcast=True)

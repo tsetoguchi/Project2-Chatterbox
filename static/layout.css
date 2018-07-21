@@ -1,32 +1,123 @@
-/*body*/
+body
+{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    background: #f5ecdc;
+}
+
+.jumbotron
+{
+    background: white;
+}
+
+#usernameHeader
+{
+    float: right;
+    font-size: 15px;
+    padding-top: 2%;
+}
+
+#submit
+{
+    margin-top: 1%;
+}
+
+#newUsername
+{
+    width: 20%;
+    float: center;
+    margin: auto;
+}
+
+#usernameForm, #typeinUsername
+{
+    text-align: center;
+    right: 50%;
+}
+
+#modalBtn
+{
+    margin-left: 34%;
+}
+
+/*Modal styling*/
+#channelSubmit
+{
+    margin-top: 5%;
+}
+
+#Addanewchannel
+{
+    margin-left: -50%;
+}
+
+#channelListbutton, #Addanewchannel
+{
+    color: buttontext;
+    background-color: white;
+}
+
+/*#channelHeader*/
 /*{*/
-/*    font-family: Arial, Helvetica, sans-serif;*/
-/*    font-size: 14px;*/
-/*    line-height: 1.6;*/
+    /*display: inline-block;*/
 /*}*/
 
-/*.button*/
-/*{*/
-/*    background: #c6c6c6;*/
-/*    padding: 1em 2em;*/
-/*    color: #ffffff;*/
-/*    border: 0;*/
-/*}*/
+#channeldiv
+{
+  width: 200px;
+  border: 1px dotted black;
+}
 
-/*.button:hover*/
-/*{*/
-/*    background: #00a7be;*/
-/*}*/
+@keyframes fade {
+    0% {
+        opacity: 1;
+        height: 100%;
+        line-height: 100%;
+        padding: 20px;
+        margin-bottom: 10px;
+    }
+    75% {
+        opacity: 0;
+        height: 100%;
+        line-height: 100%;
+        padding: 20px;
+        margin-bottom: 10px;
+    }
+    100% {
+        opacity: 0;
+        height: 0px;
+        line-height: 0px;
+        padding: 0px;
+        margin-bottom: 0px;
+    }
+}
 
-/*.modal*/
-/*{*/
-    /*display: none;*/
-/*    position: fixed;*/
-/*    z-index: 1;*/
-/*    left: 0;*/
-/*    top: 0;*/
-/*    height: 100%;*/
-/*    width: 100%;*/
-/*    overflow: auto;*/
-/*    background-color: rgba(0, 0, 0, 0.5);*/
-/*}*/
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+    75% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+
+#usernameAll, .jumbotron, #channeldiv
+{
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+}
+
+#usernameAll
+{
+    animation-name: fade;
+}
+
+.jumbotron, #channeldiv
+{
+    animation-name: fade-in;
+}
