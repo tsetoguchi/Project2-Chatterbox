@@ -61,10 +61,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         document.querySelector('#usernameHeader').innerHTML = 'Logged in as ' + username;
 
-        // socket.on('addUsername', data => {
-        //     socket.emit('addUsername', {'username': username});
-        // });
-
 
         // // Hide Button and Header
         // document.querySelector('#typeinUsername').style.display = "none";
