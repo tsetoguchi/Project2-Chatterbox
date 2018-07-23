@@ -11,12 +11,34 @@ body
     background: white;
 }
 
+.list-group-item
+{
+    width: 70%;
+    padding: 2%;
+    text-align: center;
+}
+
+input
+{
+    text-align: center;
+}
+
 #usernameHeader
 {
     float: right;
     font-size: 15px;
     padding-top: 2%;
 }
+
+#channelForms
+{
+    margin-left: 5%;
+}
+
+/*#channelForms2*/
+/*{*/
+/*    margin-top: -45px;*/
+/*}*/
 
 #submit
 {
@@ -41,10 +63,19 @@ body
     margin-left: 34%;
 }
 
-/*Modal styling*/
+
+#newChannel
+{
+    width: 70%;
+}
+
 #channelSubmit
 {
     margin-top: 5%;
+    font-size: 12px;
+    margin-left: 26%;
+    border-radius: 10px;
+    background-color: #f5ecdc;
 }
 
 #Addanewchannel
@@ -107,7 +138,7 @@ body
 }
 
 
-#usernameAll, .jumbotron, #channeldiv
+#usernameAll, .jumbotron, #channeldiv, #messageDiv
 {
     animation-duration: 2s;
     animation-fill-mode: forwards;
@@ -118,7 +149,24 @@ body
     animation-name: fade;
 }
 
-.jumbotron, #channeldiv
+.jumbotron, #channeldiv, #messageDiv
 {
     animation-name: fade-in;
+}
+
+#messageDiv
+{
+    margin-left: 25%;
+    width: 100%;
+}
+
+#newMessage
+{
+    width: 65%;
+}
+
+#sendMessage
+{
+    margin-right: 31%;
+    background-color: #f5ecdc;
 }

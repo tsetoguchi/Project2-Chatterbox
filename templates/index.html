@@ -2,7 +2,7 @@
 <html>
     <head>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-        <script src="{{ url_for('static', filename='index.js') }}"></script>
+        <script src="{{ url_for("static", filename="index.js") }}"></script>
         <link rel="stylesheet" href="static/layout.css">
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -16,13 +16,17 @@
             <h1 id="usernameHeader"></h1>
         </div>
 
+        <ul>
+
+        </ul>
+
         <!--Username form-->
         <div id="usernameAll">
-            <h1 id='typeinUsername'>Username</h1>
+            <h1 id="typeinUsername">Username</h1>
             <div id=usernameForm>
-                <form id='userform'>
+                <form id="userform">
                     <input id="newUsername" class="form-control form-control-lg" type="text" placeholder="">
-                    <input type="submit" class="btn btn-default" value="Submit" id="submit">
+                    <input type="submit" class="btn btn-default" value="Join" id="submit">
                 </form>
             </div>
         </div>
@@ -30,41 +34,36 @@
 
         <!--Channel div-->
         <div id="channeldiv">
-            <h1 id="channelHeader" value="#b3f4f5" data-color="red">Channels</h1>
-            <!--New channel modal-->
-            <div id="modalBtn">
-                <button type="button" class="btn btn-default" data-toggle="modal" id="Addanewchannel" data-target="#channelModal">
-                    New channel &#x2295
-                </button>
-            </div>
-            <div id="channelModal" class="modal fade" role="dialog">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            Create a new text channel
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        </div>
-                        <div class="modal-body">
-                            <form id="channelAdd">
-                                  <div class="form-group">
-                                        <input id="newChannel" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="">
-                                        <input type="submit" class="btn btn-default" value="Create" id="channelSubmit">
-                                  </div>
-                            </form>
-                        </div>
+            <div id="channelForms">
+                <h1 id="channelHeader" value="#b3f4f5" data-color="red">Channels</h1>
+
+                <ul class="list-group" id="channelList">
+                    {% for key, value in channel_dict.items() %}
+                        <li class="list-group-item">{{ key }}</li>
+                    {% endfor %}
+                </ul>
+                    <div id="channelForms2">
+                         <form id="channelAdd">
+                               <input id="newChannel" autocomplete="off" autofocus placeholder="New channel" maxlength="16" type="text">
+                               <input id="channelSubmit" class="btn btn-default" type="submit" value="&#43">
+                         </form>
                     </div>
-                </div>
-            </div>
-                <div class="btn-group">
-                  <button id="channelListbutton" class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Channels
-                  </button>
-                  <div id="channelMenu" class="dropdown-menu">
-                  </div>
-                </div>
+             </div>
+         </div>
+
+        <div id="messageDiv">
+        <ul class="list-group" id="messageBox">
+            {% for key, value in channel_dict.items() %}
+                {% for message in value %}
+                <li class="list-group-item">{{ message }}</li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+        <form id="messageForm">
+            <input id="newMessage" autocomplete="off" autofocus placeholder="" maxlength="100" type="text">
+            <input id="sendMessage" class="btn btn-default" type="submit" value="&#9654">
+        </form>
         </div>
-
-
 
 
 

@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+
     // Connect to websocket
     var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
 
@@ -16,23 +17,45 @@ document.addEventListener('DOMContentLoaded', () => {
     const channeldiv = document.querySelector('#channeldiv');
           channeldiv.style.animationPlayState  = 'paused';
 
-            // When connected, configure username form
+    const messageDiv = document.querySelector('#messageDiv');
+          messageDiv.style.animationPlayState  = 'paused';
+
+
+            // Connect socket
               socket.on('connect', () => {
 
                   // Submit button emitting an addChannel event
                   document.querySelector('#channelSubmit').onclick = () => {
-                      const channelName = document.querySelector('#newChannel').value;
-                      console.log('abvccccccc')
+                      const channelName = '# ' + document.querySelector('#newChannel').value;
                       socket.emit('addChannel', {'channelName': channelName});
                   };
-              });
 
-            // DEBUG addChannel
-            socket.on('channel_dict', data => {
-                console.log('abvcasdasdasd')
-                console.log(data.channel_dict)
+
+              document.querySelector('#sendMessage').onclick = () => {
+                  const username = document.createElement(username)
+                  username = JSON.parse(localStorage.getItem(username));
+                  const message = document.querySelector('#newMessage').value;
+                  console.log('adding a message********************')
+                  socket.emit('addMessage', {'message': message, 'username': username});
+              };
+
+            // If channel already exists
+                socket.on('usedChannelname', data => {
+                    console.log('Used Channel NAME')
+                    alert('Channel already exists!');
+                });
+
+            // Add channel to list if it is a unique name
+            socket.on('channel_Addtolist', data => {
+                console.log('channel_Addtolist')
+                // // Create new item li for list
+                const li = document.createElement('li');
+                li.setAttribute("class", "list-group-item");
+                li.innerHTML = document.querySelector('#newChannel').value;
+
+                // Add new item to channel list
+                document.querySelector('#channelList').append(li);
             });
-
 
     // By default, submit button is disabled
     document.querySelector('#submit').disabled = true;
@@ -52,26 +75,20 @@ document.addEventListener('DOMContentLoaded', () => {
         username = document.querySelector('#newUsername').value;
 
         // Set new item to local storage
-        localStorage.setItem('username', username)
+        localStorage.setItem('username', JSON.stringify(username))
 
         // If submit button is clicked, fade the post away and the rest of the page in
         usernameAll.style.animationPlayState  = 'running';
         jumbotron.style.animationPlayState  = 'running';
         channeldiv.style.animationPlayState  = 'running';
+        messageDiv.style.animationPlayState  = 'running';
 
+        // Logged in as username header
         document.querySelector('#usernameHeader').innerHTML = 'Logged in as ' + username;
-
-
-        // // Hide Button and Header
-        // document.querySelector('#typeinUsername').style.display = "none";
-        // document.querySelector('#usernameForm').style.display = "none";
 
         // Stop form from submitting
         return false;
     };
-
-
-
 
         // By default, submit button is disabled
         document.querySelector('#channelSubmit').disabled = true;
@@ -86,15 +103,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         document.querySelector('#channelAdd').onsubmit = () => {
 
-        // Create new item for dropdown
-        const a = document.createElement('a');
-        a.setAttribute("class", "dropdown-item")
-        a.setAttribute("href", "www.google.com")
-        a.innerHTML = document.querySelector('#newChannel').value;
-
-        // Add new item to channel list
-        document.querySelector('#channelMenu').append(a);
-
         // Clear input field and disable button again
         document.querySelector('#newChannel').value = '';
         document.querySelector('#channelSubmit').disabled = true;
@@ -102,4 +110,11 @@ document.addEventListener('DOMContentLoaded', () => {
         // Stop form from submitting
         return false;
     };
+
+        // document.querySelector('messageForm').onsubmit = () => {
+
+        // // Stop form from submitting
+        // return false;
+        // };
+    });
 });
