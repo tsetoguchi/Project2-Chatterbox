@@ -36,6 +36,7 @@ def messages(data):
     global channel_dict
 
 
+
 @socketio.on("addUsername")
 def usernameAdd(data):
     emit("username", username, broadcast=True)

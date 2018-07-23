@@ -1,5 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    // // Selectable
+    //     $( function() {
+    //     $( "#selectable" ).selectable();
+    //   } );
+
     // Connect to websocket
     var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
 
@@ -32,8 +37,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
               document.querySelector('#sendMessage').onclick = () => {
-                  const username = document.createElement(username)
-                  username = JSON.parse(localStorage.getItem(username));
+                  var username = document.createElement(username)
+                  username = localStorage.getItem('username');
                   const message = document.querySelector('#newMessage').value;
                   console.log('adding a message********************')
                   socket.emit('addMessage', {'message': message, 'username': username});
@@ -75,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
         username = document.querySelector('#newUsername').value;
 
         // Set new item to local storage
-        localStorage.setItem('username', JSON.stringify(username))
+        localStorage.setItem('username', username)
 
         // If submit button is clicked, fade the post away and the rest of the page in
         usernameAll.style.animationPlayState  = 'running';
@@ -111,10 +116,13 @@ document.addEventListener('DOMContentLoaded', () => {
         return false;
     };
 
-        // document.querySelector('messageForm').onsubmit = () => {
+        document.querySelector('#messageForm').onsubmit = () => {
 
-        // // Stop form from submitting
-        // return false;
-        // };
+        // Clear input field and disable button again
+        document.querySelector('#newMessage').value = '';
+
+        // Stop form from submitting
+        return false;
+        };
     });
 });
