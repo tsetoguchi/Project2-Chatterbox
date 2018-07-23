@@ -118,11 +118,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
         document.querySelector('#messageForm').onsubmit = () => {
 
-        // Clear input field and disable button again
-        document.querySelector('#newMessage').value = '';
+            // Initialize new request
+            const request = new XMLHttpRequest();
+            const newMessage = document.querySelector('#newMessage').value;
 
-        // Stop form from submitting
-        return false;
+            request.open('POST', '/grabMessage');
+
+            // Callback function for when request completes
+              request.onload = () => {
+
+                  // Extract JSON data from request
+                  const data = JSON.parse(request.responseText);
+
+                  // Update message list
+                  var message = document.createElement('message');
+                  message = data.messages;
+                  message.setAttribute("class", "list-group-item");
+                  document.querySelector('#messagesLi').innerHTML = message;
+
+              }
+
+            // Clear input field and disable button again
+            document.querySelector('#newMessage').value = '';
+
+            // Add data to send with request
+            const data = new FormData();
+            data.append('newMessages', newMessage);
+
+            // Stop form from submitting and send request
+            request.send(data);
+            return false;
         };
     });
 });

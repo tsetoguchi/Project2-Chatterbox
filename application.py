@@ -28,6 +28,7 @@ def channel(data):
     for channel, messages in channel_dict.items():
         if channel == channelName:
             emit("usedChannelname", broadcast=True)
+            return
     channel_dict[channelName] = []
     emit("channel_Addtolist", channelName, broadcast=True)
 
@@ -35,8 +36,14 @@ def channel(data):
 def messages(data):
     global channel_dict
 
+@app.route("/grabMessage", methods=["POST"])
+def grabMessage():
+    messages = request.form.get("newMessages")
+    global channel_dict
+    previousMessages = channel_dict['# general']
 
+    # # Make sure request succeeded
+    # if messages.status_code != 200:
+    #     return jsonify({"success": False})
 
-@socketio.on("addUsername")
-def usernameAdd(data):
-    emit("username", username, broadcast=True)
+    return jsonify({"messages": messages,'channel_dict': channel_dict['# general']})

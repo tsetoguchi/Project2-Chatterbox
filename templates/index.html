@@ -57,7 +57,7 @@
         <ul class="list-group" id="messageBox">
             {% for key, value in channel_dict.items() %}
                 {% for message in value %}
-                <li class="list-group-item">{{ message }}</li>
+                <li class="list-group-item" id="messagesLi">{{ message }}</li>
                 {% endfor %}
             {% endfor %}
         </ul>
