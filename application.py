@@ -38,6 +38,10 @@ def messages(data):
     message = data["message"]
     currentChannel = data["currentChannel"]
     channel_dict[currentChannel].append(message)
+    emit("postMessage", {'message': message}, broadcast=True)
+
+# @app.route("/messagesChannel", methods=["POST"])
+# def messagesChannel():
 
 @app.route("/grabMessage", methods=["POST"])
 def grabMessage():

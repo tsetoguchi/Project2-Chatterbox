@@ -41,14 +41,14 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('#channelHeader').style.color = "#000000";
     document.querySelector('#typeinUsername').style.color = "#000000";
 
-            // Connect socket
-              socket.on('connect', () => {
+    // Connect socket
+      socket.on('connect', () => {
 
-                  // Submit button emitting an addChannel event
-                  document.querySelector('#channelSubmit').onclick = () => {
-                      const channelName = '# ' + document.querySelector('#newChannel').value;
-                      socket.emit('addChannel', {'channelName': channelName});
-                  };
+          // Submit button emitting an addChannel event
+          document.querySelector('#channelSubmit').onclick = () => {
+              const channelName = '# ' + document.querySelector('#newChannel').value;
+              socket.emit('addChannel', {'channelName': channelName});
+          };
 
                 // If channel already exists
                 socket.on('usedChannelname', data => {
@@ -56,31 +56,41 @@ document.addEventListener('DOMContentLoaded', () => {
                     alert('Channel already exists!');
                 });
 
-                // Add channel to select if it is a unique name
-            socket.on('channel_Addtolist', data => {
-                console.log('channel_Addtolist');
-                // // Create new item option for select
-                var option = document.createElement('option');
-                option.setAttribute("class", "form-control form-control-sm");
-                option.innerHTML = `${data.channelName}`;
+            // Add channel to select if it is a unique name
+        socket.on('channel_Addtolist', data => {
+            console.log('channel_Addtolist');
+            // // Create new item option for select
+            var option = document.createElement('option');
+            option.setAttribute("class", "form-control form-control-sm");
+            option.innerHTML = `${data.channelName}`;
 
-                // Add new item to channel select
-                document.querySelector('#channelSelect').append(option);
-            });
+            // Add new item to channel select
+            document.querySelector('#channelSelect').append(option);
+        });
 
             // Message Sockets
 
-            // Add message to current channel
-            document.querySelector('#sendMessage').onclick = () => {
-                var username = document.createElement('username');
-                username = localStorage.getItem('username');
-                const message = `${displayTime()} ~ ${username}: ${document.querySelector('#newMessage').value}`;
-                console.log('adding a message********************');
-                var currentChannel = document.createElement('currentChannel');
-                currentChannel = localStorage.getItem('currentChannel');
-                socket.emit('addMessage', {'message': message, 'username': username, 'currentChannel': currentChannel});
-            };
+        // Add message to current channel
+        document.querySelector('#sendMessage').onclick = () => {
+            var username = document.createElement('username');
+            username = localStorage.getItem('username');
+            const message = `${displayTime()} ~ ${username}: ${document.querySelector('#newMessage').value}`;
+            console.log('adding a message********************');
+            var currentChannel = document.createElement('currentChannel');
+            currentChannel = localStorage.getItem('currentChannel');
+            socket.emit('addMessage', {'message': message, 'username': username, 'currentChannel': currentChannel});
+        };
+
+
+        socket.on('postMessage', data => {
+            var li = document.createElement('li');
+            li.setAttribute("class", "list-group-item");
+            li.setAttribute("id", "messageLi");
+            li.innerHTML = `${data.message}`;
+            document.querySelector('#messageBox').append(li);
         });
+
+    });
 
     document.querySelector('#userform').onsubmit = () => {
 
@@ -106,6 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Stop form from submitting
         return false;
+
     };
 
     // By default, submit button is disabled
@@ -117,13 +128,6 @@ document.addEventListener('DOMContentLoaded', () => {
             document.querySelector('#submit').disabled = false;
         else
             document.querySelector('#submit').disabled = true;
-    };
-
-                // Channel select
-    document.querySelector('#channelSelect').onchange = function() {
-        var currentChannel = document.createElement('currentChannel');
-        currentChannel = this.options[this.selectedIndex].innerHTML;
-        localStorage.setItem('currentChannel', currentChannel);
     };
 
         // By default, submit button is disabled
@@ -147,52 +151,54 @@ document.addEventListener('DOMContentLoaded', () => {
         return false;
     };
 
+     // Channel select
+    document.querySelector('#channelSelect').onchange = function() {
+        console.log('CURRENT CHANNEL SELECT LOCAL STORAGE');
+        var currentChannel = document.createElement('currentChannel');
+        currentChannel = this.options[this.selectedIndex].innerHTML;
+        localStorage.setItem('currentChannel', currentChannel);
+    };
+
+        // document.querySelector('#channelSelect').onchange = function() {
+
+        //     // Initialize new request
+        //     const request = new XMLHttpRequest();
+        //     var newMessage = document.querySelector('#newMessage').value;
+        //     var currentChannel = localStorage.getItem('currentChannel');
+
+
+
+
+
+
+
+
+        // };
+
         document.querySelector('#messageForm').onsubmit = () => {
 
-            // Initialize new request
-            const request = new XMLHttpRequest();
-            var newMessage = document.querySelector('#newMessage').value;
-            var currentChannel = localStorage.getItem('currentChannel');
+            // // Initialize new request
+            // const request = new XMLHttpRequest();
+            // var newMessage = document.querySelector('#newMessage').value;
+            // var currentChannel = localStorage.getItem('currentChannel');
 
-            request.open('POST', '/grabMessage');
+            // request.open('POST', '/grabMessage');
 
-            // Callback function for when request completes
-                request.onload = () => {
+            // // Callback function for when request completes, in this case nothing
+            //     request.onload = () => {
 
-                  // Extract JSON data from request
-                  const data = JSON.parse(request.responseText);
+            //     };
 
-                  // Get username from local storage
-                  var username = localStorage.getItem('username');
-
-                  // Update message list
-                  var message = document.createElement('message');
-                  message = data.message;
-                  console.log(message);
-                  console.log(username);
-
-                  var li = document.createElement('li');
-                  li.setAttribute("class", "list-group-item");
-                  li.setAttribute("id", "messageLi");
-                  li.innerHTML = `${displayTime()} ~ ${username}: ${message}`;
-                  document.querySelector('#messageBox').append(li);
-                  console.log('JSONIFFFFFFFFYYYYYYYY');
-
-                  console.log('**************************');
-
-
-                };
-
-            // Clear input field and disable button again
+            // Clear input field
             document.querySelector('#newMessage').value = '';
 
-            // Add data to send with request
-            const data = new FormData();
-            data.append('newMessage', newMessage);
-            data.append('currentChannel', currentChannel);
+            // // Add data to send with request
+            // const data = new FormData();
+            // data.append('newMessage', newMessage);
+            // data.append('currentChannel', currentChannel);
 
-            // Stop form from submitting and send request
-            request.send(data);
+            // // Stop form from submitting and send request
+            // request.send(data);
             return false;
         };
 

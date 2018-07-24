@@ -94,6 +94,10 @@ input
     background-color: white;
 }
 
+#messagesLi
+{
+    font-weight: bold;
+}
 /*#channelHeader*/
 /*{*/
     /*display: inline-block;*/
