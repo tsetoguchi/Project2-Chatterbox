@@ -24,6 +24,7 @@ def channel(data):
     channelName = data["channelName"]
     global channel_dict
 
+    # If channel name is unique, append as dictionary key to channel_dict, else emit 'usedChannelname'
     for channel, messages in channel_dict.items():
         if channel == channelName:
             emit("usedChannelname", broadcast=True)
@@ -33,22 +34,31 @@ def channel(data):
 
 @socketio.on("addMessage")
 def messages(data):
+
+    # Add message to server
     global channel_dict
     message = data["message"]
     currentChannel = data["currentChannel"]
     channel_dict[currentChannel].append(message)
+
     emit("postMessage", {'message': message}, broadcast=True)
 
 @socketio.on("deleteMessage")
 def deleteMessage(data):
+
+    # Delete message from server
     global channel_dict
     message = data["message"]
     currentChannel = data["currentChannel"]
     if message in channel_dict[currentChannel]:
         channel_dict[currentChannel].remove(message)
+        emit("deleteforAll", {'message': message} ,broadcast=True)
+        return
 
 @app.route("/messagesChannel", methods=["POST"])
 def messagesChannel():
+
+    # Retrieve messages from current channel
     global channel_dict
     currentChannel = request.form.get("currentChannel")
     messages = channel_dict[currentChannel]
@@ -57,6 +67,8 @@ def messagesChannel():
 
 @app.route("/grabMessage", methods=["POST"])
 def grabMessage():
+
+    # Retrieve messages from current channel
     message = request.form.get("newMessage")
     currentChannel = request.form.get("currentChannel")
     global channel_dict

@@ -12,7 +12,6 @@ body
 
 .list-group-item
 {
-    width: 70%;
     text-align: left;
     padding: 3px 10px
 }
@@ -30,10 +29,14 @@ input
     padding-top: 2%;
 }
 
+#boxTitle, .list-group-item
+{
+    width: 70%;
+}
+
 #boxTitle
 {
-    background-color: #dddad7;
-    width: 70%;
+    background-color: #94d8ef;
     text-align: center;
     height: 10%;
 }

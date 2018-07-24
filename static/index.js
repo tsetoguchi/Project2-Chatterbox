@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Message Sockets
 
-        // Add message to current channel
+        // Add message to current channel on server
         document.querySelector('#sendMessage').onclick = () => {
             var username = document.createElement('username');
             username = localStorage.getItem('username');
@@ -122,6 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
             socket.emit('addMessage', {'message': message, 'username': username, 'currentChannel': currentChannel});
         };
 
+        // Add message to real time chat
         socket.on('postMessage', data => {
             var li = document.createElement('li');
             li.setAttribute("class", "list-group-item");
@@ -135,11 +136,17 @@ document.addEventListener('DOMContentLoaded', () => {
             button.innerHTML = `x`;
             li.append(button);
                 button.onclick = function() {
+                const buttonli = this.parentElement;
                 this.parentElement.remove();
                 var currentChannel = document.createElement('currentChannel');
                 currentChannel = localStorage.getItem('currentChannel');
                 socket.emit('deleteMessage', {'currentChannel': currentChannel, 'message': data.message});
-    };
+
+                    socket.on('deleteforAll', function () {
+                        console.log('deleteforAll');
+                        buttonli.remove();
+                    });
+                };
         });
 
     });
@@ -192,7 +199,6 @@ document.addEventListener('DOMContentLoaded', () => {
             document.querySelector('#sendMessage').disabled = true;
     };
 
-
     // Enable button only if there is text in the input field
     document.querySelector('#newChannel').onkeyup = () => {
         if (document.querySelector('#newChannel').value.length > 0)
@@ -209,7 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Stop form from submitting
     return false;
-};
+    };
 
         // Channel select function
     document.querySelector('#channelSelect').onchange = function() {
@@ -257,7 +263,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector('#messageForm').onsubmit = () => {
 
             document.querySelector('#newMessage').value = '';
-
             return false;
         };
 });
