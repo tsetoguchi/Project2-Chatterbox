@@ -59,11 +59,12 @@
 
         <div id="messageDiv">
         <ul class="list-group" id="messageBox">
-            {% for key, value in channel_dict.items() %}
-                {% for message in value %}
-                <li class="list-group-item" id="messagesLi">{{ message }}</li>
-                {% endfor %}
-            {% endfor %}
+            <!--{% for key, value in channel_dict.items() %}-->
+            <!--    {% for message in value %}-->
+                <li class="list-group-item" id="messagesLi"></li>
+                <!--{{ message }}-->
+            <!--    {% endfor %}-->
+            <!--{% endfor %}-->
         </ul>
         <form id="messageForm" >
             <input id="newMessage" autocomplete="off" autofocus placeholder="" maxlength="100" type="text">

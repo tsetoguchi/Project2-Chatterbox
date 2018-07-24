@@ -119,6 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     };
 
+
     // By default, submit button is disabled
     document.querySelector('#submit').disabled = true;
 
@@ -151,12 +152,52 @@ document.addEventListener('DOMContentLoaded', () => {
         return false;
     };
 
-     // Channel select
+        // Channel select
     document.querySelector('#channelSelect').onchange = function() {
+
         console.log('CURRENT CHANNEL SELECT LOCAL STORAGE');
         var currentChannel = document.createElement('currentChannel');
         currentChannel = this.options[this.selectedIndex].innerHTML;
         localStorage.setItem('currentChannel', currentChannel);
+
+        // Initialize new request
+        const request = new XMLHttpRequest();
+        currentChannel = localStorage.getItem('currentChannel');
+        request.open('POST', '/messagesChannel');
+
+        // Callback function for when request completes, in this case nothing
+        request.onload = () => {
+
+        // Extract JSON data from request
+        const data = JSON.parse(request.responseText);
+
+        console.log(data.messages);
+        document.querySelectorAll('#messageLi').forEach(li => {
+            li.remove();
+
+        });
+
+        for(var i = 0, size = (data.messages).length; i < size ; i++)
+        {
+        var li = document.createElement('li');
+        li.setAttribute("class", "list-group-item");
+        li.setAttribute("id", "messageLi");
+        li.innerHTML = `${data.messages[i]}`;
+        document.querySelector('#messageBox').append(li);
+
+        }
+    };
+        console.log('before sending data');
+        // Add data to send with request
+        const data = new FormData();
+        data.append('currentChannel', currentChannel);
+        console.log('after sending data');
+        console.log(data);
+        // Stop form from submitting and send request
+        request.send(data);
+        console.log('after sending dataaaaaaaaaaa');
+        return false;
+
     };
 
         // document.querySelector('#channelSelect').onchange = function() {

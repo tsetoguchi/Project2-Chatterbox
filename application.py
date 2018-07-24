@@ -40,8 +40,13 @@ def messages(data):
     channel_dict[currentChannel].append(message)
     emit("postMessage", {'message': message}, broadcast=True)
 
-# @app.route("/messagesChannel", methods=["POST"])
-# def messagesChannel():
+@app.route("/messagesChannel", methods=["POST"])
+def messagesChannel():
+    global channel_dict
+    currentChannel = request.form.get("currentChannel")
+    messages = channel_dict[currentChannel]
+
+    return jsonify({"messages": messages})
 
 @app.route("/grabMessage", methods=["POST"])
 def grabMessage():
