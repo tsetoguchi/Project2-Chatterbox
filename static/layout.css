@@ -14,9 +14,10 @@ body
 .list-group-item
 {
     width: 70%;
-    padding: 2%;
-    text-align: center;
+    text-align: left;
+    padding: 3px 10px
 }
+
 
 input
 {
@@ -40,7 +41,6 @@ input
 {
     font-size: 30px;
 }
-
 
 #submit
 {
@@ -74,12 +74,23 @@ input
     width: 70%;
 }
 
+#channelSubmit, #sendMessage
+{
+    color: #22abd8;
+}
+
 #channelSubmit
 {
     margin-top: 0;
     font-size: 12px;
     margin-left: 25%;
     border-radius: 10px;
+    background-color: #f5ecdc;
+}
+
+#sendMessage
+{
+    margin-right: 31%;
     background-color: #f5ecdc;
 }
 
@@ -94,15 +105,6 @@ input
     background-color: white;
 }
 
-#messagesLi
-{
-    font-weight: bold;
-}
-/*#channelHeader*/
-/*{*/
-    /*display: inline-block;*/
-/*}*/
-
 #channeldiv
 {
     width: 200px;
@@ -110,7 +112,37 @@ input
     left: calc(50% - XYpx);
     border: 0;
     outline: 0;
-    margin-left: 2%;
+    margin-left: 5%;
+}
+
+#messageDiv
+{
+    margin-left: 25%;
+    width: 100%;
+    margin-top: -10%;
+    padding-right: 10%;
+    padding-left: 10%;
+}
+
+#messageHeader
+{
+    margin-left: 25%;
+}
+
+#channelSelect
+{
+    width: 70%;
+}
+
+#newMessage
+{
+    width: 65%;
+}
+
+#channelHeader
+{
+    font-size: 30px;
+    margin-left: 30%;
 }
 
 @keyframes fade {
@@ -164,40 +196,4 @@ input
 .jumbotron, #channeldiv, #messageDiv
 {
     animation-name: fade-in;
-}
-
-#messageDiv
-{
-    margin-left: 25%;
-    width: 100%;
-    margin-top: -7%;
-    padding-right: 10%;
-    padding-left: 10%;
-}
-
-#messageHeader
-{
-    margin-left: 25%;
-}
-
-#channelSelect
-{
-    width: 70%;
-}
-
-#newMessage
-{
-    width: 65%;
-}
-
-#sendMessage
-{
-    margin-right: 31%;
-    background-color: #f5ecdc;
-}
-
-#channelHeader
-{
-    font-size: 30px;
-    margin-left: 30%;
 }

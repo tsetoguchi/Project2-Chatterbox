@@ -8,8 +8,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
-        <!--<script src="https://code.jquery.com/jquery-1.12.4.js"></script>-->
-        <!--<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>-->
     </head>
     <body>
 
@@ -33,7 +31,6 @@
             </div>
         </div>
 
-
         <!--Channel div-->
         <div id="channeldiv">
             <div id="channelForms">
@@ -43,11 +40,6 @@
                             <option>{{ key }}</option>
                         {% endfor %}
                     </select>
-                <!--<ul class="list-group" id="channelList">-->
-                <!--    {% for key, value in channel_dict.items() %}-->
-                <!--        <li class="list-group-item">{{ key }}</li>-->
-                <!--    {% endfor %}-->
-                <!--</ul>-->
                     <div id="channelForms2">
                          <form id="channelAdd">
                                <input id="newChannel" autocomplete="off" autofocus placeholder="" maxlength="16" type="text">
@@ -57,35 +49,14 @@
              </div>
          </div>
 
-
         <div id="messageDiv">
             <h1 id="messageHeader"></h1>
             <ul class="list-group" id="messageBox">
-                <!--{% for key, value in channel_dict.items() %}-->
-                <!--    {% for message in value %}-->
-                    <!--<li class="list-group-item" id="messagesLi"></li>-->
-                <!--    {{ message }}-->
-                <!--    {% endfor %}-->
-                <!--{% endfor %}-->
             </ul>
             <form id="messageForm" >
-                <input id="newMessage" autocomplete="off" autofocus placeholder="" maxlength="100" type="text">
+                <input id="newMessage" autocomplete="off" autofocus placeholder="Type your message..." maxlength="50" type="text">
                 <input id="sendMessage" class="btn btn-default" type="submit" value="&#9654">
             </form>
         </div>
-
-
-        <!--<ol id="selectable">-->
-        <!--  <li class="ui-widget-content">Item 1</li>-->
-        <!--  <li class="ui-widget-content">Item 2</li>-->
-        <!--  <li class="ui-widget-content">Item 3</li>-->
-        <!--  <li class="ui-widget-content">Item 4</li>-->
-        <!--  <li class="ui-widget-content">Item 5</li>-->
-        <!--  <li class="ui-widget-content">Item 6</li>-->
-        <!--  <li class="ui-widget-content">Item 7</li>-->
-        <!--</ol>-->
-
-
-
     </body>
 </html>
