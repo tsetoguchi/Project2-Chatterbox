@@ -14,7 +14,7 @@
     <body>
 
         <div class="jumbotron">
-            <h1 class="display-3">Welcome!</h1>
+            <h1 class="display-3">Chatterbox</h1>
             <h1 id="usernameHeader"></h1>
         </div>
 
@@ -24,7 +24,7 @@
 
         <!--Username form-->
         <div id="usernameAll">
-            <h1 id="typeinUsername">Username</h1>
+            <h1 id="typeinUsername">Type in your name!</h1>
             <div id=usernameForm>
                 <form id="userform">
                     <input id="newUsername" class="form-control form-control-lg" type="text" placeholder="">
@@ -50,26 +50,28 @@
                 <!--</ul>-->
                     <div id="channelForms2">
                          <form id="channelAdd">
-                               <input id="newChannel" autocomplete="off" autofocus placeholder="New channel" maxlength="16" type="text">
-                               <input id="channelSubmit" class="btn btn-default" type="submit" value="&#43">
+                               <input id="newChannel" autocomplete="off" autofocus placeholder="" maxlength="16" type="text">
+                               <input id="channelSubmit" class="btn btn-default" type="submit" value="&#9654">
                          </form>
                     </div>
              </div>
          </div>
 
+
         <div id="messageDiv">
-        <ul class="list-group" id="messageBox">
-            <!--{% for key, value in channel_dict.items() %}-->
-            <!--    {% for message in value %}-->
-                <li class="list-group-item" id="messagesLi"></li>
-                <!--{{ message }}-->
-            <!--    {% endfor %}-->
-            <!--{% endfor %}-->
-        </ul>
-        <form id="messageForm" >
-            <input id="newMessage" autocomplete="off" autofocus placeholder="" maxlength="100" type="text">
-            <input id="sendMessage" class="btn btn-default" type="submit" value="&#9654">
-        </form>
+            <h1 id="messageHeader"></h1>
+            <ul class="list-group" id="messageBox">
+                <!--{% for key, value in channel_dict.items() %}-->
+                <!--    {% for message in value %}-->
+                    <!--<li class="list-group-item" id="messagesLi"></li>-->
+                <!--    {{ message }}-->
+                <!--    {% endfor %}-->
+                <!--{% endfor %}-->
+            </ul>
+            <form id="messageForm" >
+                <input id="newMessage" autocomplete="off" autofocus placeholder="" maxlength="100" type="text">
+                <input id="sendMessage" class="btn btn-default" type="submit" value="&#9654">
+            </form>
         </div>
 
 

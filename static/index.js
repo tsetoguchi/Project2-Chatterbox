@@ -1,5 +1,48 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+
+
+        window.onload = GetAllProperties;
+        function GetAllProperties() {
+
+        // var li = document.querySelectorAll('#messageLi');
+        $('#messageLi').remove();
+
+        // Initialize new request
+        const request = new XMLHttpRequest();
+        currentChannel = localStorage.getItem('currentChannel');
+        request.open('POST', '/messagesChannel');
+
+        // Callback function for when request completes, in this case nothing
+        request.onload = () => {
+
+        // Extract JSON data from request
+        const data = JSON.parse(request.responseText);
+
+        document.querySelectorAll('#messageLi').forEach(li => {
+            li.remove();
+
+        });
+
+        // Iterate through the individual messages and add them to the list messageBox
+        for(var i = 0, size = (data.messages).length; i < size ; i++)
+        {
+        var li = document.createElement('li');
+        li.setAttribute("class", "list-group-item");
+        li.setAttribute("id", "messageLi");
+        li.innerHTML = `${data.messages[i]}`;
+        document.querySelector('#messageBox').append(li);
+
+        }
+    };
+        // Add data to send with request
+        const data = new FormData();
+        data.append('currentChannel', currentChannel);
+        // Stop form from submitting and send request
+        request.send(data);
+        return false;
+        }
+
     // Animations
     const usernameAll = document.querySelector('#usernameAll');
           usernameAll.style.animationPlayState  = 'paused';
@@ -10,6 +53,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const messageDiv = document.querySelector('#messageDiv');
           messageDiv.style.animationPlayState  = 'paused';
 
+    // Initialize message header to current channel
+    currentChannel = localStorage.getItem('currentChannel');
+    document.querySelector('#messageHeader').innerHTML = currentChannel;
     // Time function
     function displayTime() {
     var str = "";
@@ -52,13 +98,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // If channel already exists
                 socket.on('usedChannelname', data => {
-                    console.log('Used Channel NAME');
                     alert('Channel already exists!');
                 });
 
             // Add channel to select if it is a unique name
         socket.on('channel_Addtolist', data => {
-            console.log('channel_Addtolist');
             // // Create new item option for select
             var option = document.createElement('option');
             option.setAttribute("class", "form-control form-control-sm");
@@ -75,7 +119,6 @@ document.addEventListener('DOMContentLoaded', () => {
             var username = document.createElement('username');
             username = localStorage.getItem('username');
             const message = `${displayTime()} ~ ${username}: ${document.querySelector('#newMessage').value}`;
-            console.log('adding a message********************');
             var currentChannel = document.createElement('currentChannel');
             currentChannel = localStorage.getItem('currentChannel');
             socket.emit('addMessage', {'message': message, 'username': username, 'currentChannel': currentChannel});
@@ -152,13 +195,13 @@ document.addEventListener('DOMContentLoaded', () => {
         return false;
     };
 
-        // Channel select
+        // Channel select function
     document.querySelector('#channelSelect').onchange = function() {
 
-        console.log('CURRENT CHANNEL SELECT LOCAL STORAGE');
         var currentChannel = document.createElement('currentChannel');
         currentChannel = this.options[this.selectedIndex].innerHTML;
         localStorage.setItem('currentChannel', currentChannel);
+        document.querySelector('#messageHeader').innerHTML = currentChannel;
 
         // Initialize new request
         const request = new XMLHttpRequest();
@@ -171,12 +214,11 @@ document.addEventListener('DOMContentLoaded', () => {
         // Extract JSON data from request
         const data = JSON.parse(request.responseText);
 
-        console.log(data.messages);
         document.querySelectorAll('#messageLi').forEach(li => {
             li.remove();
-
         });
 
+        // Iterate through the individual messages and add them to the list messageBox
         for(var i = 0, size = (data.messages).length; i < size ; i++)
         {
         var li = document.createElement('li');
@@ -187,59 +229,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
         }
     };
-        console.log('before sending data');
         // Add data to send with request
         const data = new FormData();
         data.append('currentChannel', currentChannel);
-        console.log('after sending data');
-        console.log(data);
         // Stop form from submitting and send request
         request.send(data);
-        console.log('after sending dataaaaaaaaaaa');
         return false;
 
     };
-
-        // document.querySelector('#channelSelect').onchange = function() {
-
-        //     // Initialize new request
-        //     const request = new XMLHttpRequest();
-        //     var newMessage = document.querySelector('#newMessage').value;
-        //     var currentChannel = localStorage.getItem('currentChannel');
-
-
-
-
-
-
-
-
-        // };
-
+        // Reset the message form input and prevent it from submitting
         document.querySelector('#messageForm').onsubmit = () => {
 
-            // // Initialize new request
-            // const request = new XMLHttpRequest();
-            // var newMessage = document.querySelector('#newMessage').value;
-            // var currentChannel = localStorage.getItem('currentChannel');
-
-            // request.open('POST', '/grabMessage');
-
-            // // Callback function for when request completes, in this case nothing
-            //     request.onload = () => {
-
-            //     };
-
-            // Clear input field
             document.querySelector('#newMessage').value = '';
 
-            // // Add data to send with request
-            // const data = new FormData();
-            // data.append('newMessage', newMessage);
-            // data.append('currentChannel', currentChannel);
-
-            // // Stop form from submitting and send request
-            // request.send(data);
             return false;
         };
 

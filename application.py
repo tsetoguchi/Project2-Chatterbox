@@ -12,7 +12,6 @@ socketio = SocketIO(app)
 # list of all channels
 channel_dict = {
     '# general': [
-
         ]
 }
 
@@ -58,9 +57,5 @@ def grabMessage():
     # Prevent channel from containing more than 100 messages at once
     if len(previousMessages) > 100:
         previousMessages.remove(previousMessages[0])
-
-    # # Make sure request succeeded
-    # if messages.status_code != 200:
-    #     return jsonify({"success": False})
 
     return jsonify({"message": str(message)})

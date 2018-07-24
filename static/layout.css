@@ -8,7 +8,7 @@ body
 
 .jumbotron
 {
-    background: white;
+    background: #bce6f4;
 }
 
 .list-group-item
@@ -36,10 +36,11 @@ input
     outline: 0;
 }
 
-/*#channelForms2*/
-/*{*/
-/*    margin-top: -45px;*/
-/*}*/
+#typeinUsername
+{
+    font-size: 30px;
+}
+
 
 #submit
 {
@@ -75,9 +76,9 @@ input
 
 #channelSubmit
 {
-    margin-top: 5%;
+    margin-top: 0;
     font-size: 12px;
-    margin-left: 80%;
+    margin-left: 25%;
     border-radius: 10px;
     background-color: #f5ecdc;
 }
@@ -104,10 +105,12 @@ input
 
 #channeldiv
 {
-  width: 200px;
-  border: 0;
-  outline: 0;
-  margin-left: 2%;
+    width: 200px;
+    top: calc(50% - XYpx);
+    left: calc(50% - XYpx);
+    border: 0;
+    outline: 0;
+    margin-left: 2%;
 }
 
 @keyframes fade {
@@ -167,6 +170,14 @@ input
 {
     margin-left: 25%;
     width: 100%;
+    margin-top: -7%;
+    padding-right: 10%;
+    padding-left: 10%;
+}
+
+#messageHeader
+{
+    margin-left: 25%;
 }
 
 #channelSelect
@@ -187,5 +198,6 @@ input
 
 #channelHeader
 {
-    margin-left: 20%
+    font-size: 30px;
+    margin-left: 30%;
 }
