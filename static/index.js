@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
         window.onload = GetAllProperties;
         function GetAllProperties() {
 
-        // var li = document.querySelectorAll('#messageLi');
+        // Remove all MessageLi
         $('#messageLi').remove();
 
         // Initialize new request
@@ -19,10 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // Extract JSON data from request
         const data = JSON.parse(request.responseText);
 
-        document.querySelectorAll('#messageLi').forEach(li => {
-            li.remove();
-
-        });
+        // Remove all MessageLi
+        $('#messageLi').remove();
 
         // Iterate through the individual messages and add them to the list messageBox
         for(var i = 0, size = (data.messages).length; i < size ; i++)
@@ -173,8 +171,10 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
 
-    // By default, submit button is disabled
+    // By default, disable all submit buttons
     document.querySelector('#submit').disabled = true;
+    document.querySelector('#channelSubmit').disabled = true;
+    document.querySelector('#sendMessage').disabled = true;
 
     // Enable button only if there is text in the input field
     document.querySelector('#userform').onkeyup = () => {
@@ -184,26 +184,32 @@ document.addEventListener('DOMContentLoaded', () => {
             document.querySelector('#submit').disabled = true;
     };
 
-        // By default, submit button is disabled
-        document.querySelector('#channelSubmit').disabled = true;
-
-        // Enable button only if there is text in the input field
-        document.querySelector('#newChannel').onkeyup = () => {
-            if (document.querySelector('#newChannel').value.length > 0)
-                document.querySelector('#channelSubmit').disabled = false;
-            else
-                document.querySelector('#channelSubmit').disabled = true;
-        };
-
-        document.querySelector('#channelAdd').onsubmit = () => {
-
-        // Clear input field and disable button again
-        document.querySelector('#newChannel').value = '';
-        document.querySelector('#channelSubmit').disabled = true;
-
-        // Stop form from submitting
-        return false;
+    // Enable button only if there is text in the input field
+    document.querySelector('#messageForm').onkeyup = () => {
+        if (document.querySelector('#newMessage').value.length > 0)
+            document.querySelector('#sendMessage').disabled = false;
+        else
+            document.querySelector('#sendMessage').disabled = true;
     };
+
+
+    // Enable button only if there is text in the input field
+    document.querySelector('#newChannel').onkeyup = () => {
+        if (document.querySelector('#newChannel').value.length > 0)
+            document.querySelector('#channelSubmit').disabled = false;
+        else
+            document.querySelector('#channelSubmit').disabled = true;
+    };
+
+    document.querySelector('#channelAdd').onsubmit = () => {
+
+    // Clear input field and disable button again
+    document.querySelector('#newChannel').value = '';
+    document.querySelector('#channelSubmit').disabled = true;
+
+    // Stop form from submitting
+    return false;
+};
 
         // Channel select function
     document.querySelector('#channelSelect').onchange = function() {
@@ -254,5 +260,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
             return false;
         };
-
 });
