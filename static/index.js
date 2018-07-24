@@ -170,7 +170,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     };
 
-
     // By default, disable all submit buttons
     document.querySelector('#submit').disabled = true;
     document.querySelector('#channelSubmit').disabled = true;
@@ -260,5 +259,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
             return false;
         };
-
 });
