@@ -41,7 +41,7 @@ def messages(data):
 
 @app.route("/grabMessage", methods=["POST"])
 def grabMessage():
-    messages = request.form.get("newMessage")
+    message = request.form.get("newMessage")
     currentChannel = request.form.get("currentChannel")
     global channel_dict
     previousMessages = channel_dict[currentChannel]
@@ -54,4 +54,4 @@ def grabMessage():
     # if messages.status_code != 200:
     #     return jsonify({"success": False})
 
-    return jsonify({"messages": messages,'channel_dict': channel_dict['# general']})
+    return jsonify({"message": str(message)})
