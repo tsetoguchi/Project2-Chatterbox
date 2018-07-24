@@ -36,6 +36,12 @@ input
     outline: 0;
 }
 
+#delButton
+{
+    width: 15%;
+    margin-left: 30%
+}
+
 #typeinUsername
 {
     font-size: 30px;

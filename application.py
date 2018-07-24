@@ -39,6 +39,14 @@ def messages(data):
     channel_dict[currentChannel].append(message)
     emit("postMessage", {'message': message}, broadcast=True)
 
+@socketio.on("deleteMessage")
+def deleteMessage(data):
+    global channel_dict
+    message = data["message"]
+    currentChannel = data["currentChannel"]
+    if message in channel_dict[currentChannel]:
+        channel_dict[currentChannel].remove(message)
+
 @app.route("/messagesChannel", methods=["POST"])
 def messagesChannel():
     global channel_dict

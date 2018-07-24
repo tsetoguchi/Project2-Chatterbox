@@ -124,13 +124,23 @@ document.addEventListener('DOMContentLoaded', () => {
             socket.emit('addMessage', {'message': message, 'username': username, 'currentChannel': currentChannel});
         };
 
-
         socket.on('postMessage', data => {
             var li = document.createElement('li');
             li.setAttribute("class", "list-group-item");
             li.setAttribute("id", "messageLi");
             li.innerHTML = `${data.message}`;
             document.querySelector('#messageBox').append(li);
+
+            var button = document.createElement('button');
+            button.setAttribute("id", "delButton");
+            button.innerHTML = `x`;
+            li.append(button);
+                button.onclick = function() {
+                this.parentElement.remove();
+                var currentChannel = document.createElement('currentChannel');
+                currentChannel = localStorage.getItem('currentChannel');
+                socket.emit('deleteMessage', {'currentChannel': currentChannel, 'message': data.message});
+    };
         });
 
     });
