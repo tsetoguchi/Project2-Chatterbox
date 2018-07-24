@@ -1,6 +1,5 @@
 body
 {
-    font-family: Arial, Helvetica, sans-serif;
     font-size: 14px;
     line-height: 1.6;
     background: #f5ecdc;
@@ -31,10 +30,23 @@ input
     padding-top: 2%;
 }
 
+#boxTitle
+{
+    background-color: #dddad7;
+    width: 70%;
+    text-align: center;
+    height: 10%;
+}
+
 #channelForms
 {
     margin-left: 5%;
     outline: 0;
+}
+
+#chatTitle
+{
+    font-size: 70px;
 }
 
 #delButton
@@ -130,11 +142,6 @@ input
     padding-left: 10%;
 }
 
-#messageHeader
-{
-    margin-left: 25%;
-}
-
 #channelSelect
 {
     width: 70%;
@@ -143,6 +150,7 @@ input
 #newMessage
 {
     width: 65%;
+    width: 70%;
 }
 
 #channelHeader
