@@ -129,6 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
             li.innerHTML = `${data.message}`;
             document.querySelector('#messageBox').append(li);
 
+            // Delete button
             var button = document.createElement('button');
             button.setAttribute("id", "delButton");
             button.innerHTML = `x`;
