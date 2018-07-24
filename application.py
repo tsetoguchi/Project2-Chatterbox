@@ -12,7 +12,7 @@ socketio = SocketIO(app)
 # list of all channels
 channel_dict = {
     '# general': [
-        'message1', 'message2'
+
         ]
 }
 
@@ -30,17 +30,25 @@ def channel(data):
             emit("usedChannelname", broadcast=True)
             return
     channel_dict[channelName] = []
-    emit("channel_Addtolist", channelName, broadcast=True)
+    emit("channel_Addtolist", {'channelName': channelName}, broadcast=True)
 
 @socketio.on("addMessage")
 def messages(data):
     global channel_dict
+    message = data["message"]
+    currentChannel = data["currentChannel"]
+    channel_dict[currentChannel].append(message)
 
 @app.route("/grabMessage", methods=["POST"])
 def grabMessage():
-    messages = request.form.get("newMessages")
+    messages = request.form.get("newMessage")
+    currentChannel = request.form.get("currentChannel")
     global channel_dict
-    previousMessages = channel_dict['# general']
+    previousMessages = channel_dict[currentChannel]
+
+    # Prevent channel from containing more than 100 messages at once
+    if len(previousMessages) > 100:
+        previousMessages.remove(previousMessages[0])
 
     # # Make sure request succeeded
     # if messages.status_code != 200:

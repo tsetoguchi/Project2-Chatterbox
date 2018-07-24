@@ -1,9 +1,28 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // // Selectable
-    //     $( function() {
-    //     $( "#selectable" ).selectable();
-    //   } );
+    // Time function
+    function displayTime() {
+    var str = "";
+
+    var currentTime = new Date()
+    var hours = currentTime.getHours()
+    var minutes = currentTime.getMinutes()
+    var seconds = currentTime.getSeconds()
+
+    if (minutes < 10) {
+        minutes = "0" + minutes
+    }
+    if (seconds < 10) {
+        seconds = "0" + seconds
+    }
+    str += hours + ":" + minutes + ":" + seconds + " ";
+    if(hours > 11){
+        str += "PM"
+    } else {
+        str += "AM"
+    }
+    return str;
+    }
 
     // Connect to websocket
     var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
@@ -15,13 +34,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Animations
     const usernameAll = document.querySelector('#usernameAll');
           usernameAll.style.animationPlayState  = 'paused';
-
     const jumbotron = document.querySelector('.jumbotron');
           jumbotron.style.animationPlayState  = 'paused';
-
     const channeldiv = document.querySelector('#channeldiv');
           channeldiv.style.animationPlayState  = 'paused';
-
     const messageDiv = document.querySelector('#messageDiv');
           messageDiv.style.animationPlayState  = 'paused';
 
@@ -35,33 +51,37 @@ document.addEventListener('DOMContentLoaded', () => {
                       socket.emit('addChannel', {'channelName': channelName});
                   };
 
-
-              document.querySelector('#sendMessage').onclick = () => {
-                  var username = document.createElement(username)
-                  username = localStorage.getItem('username');
-                  const message = document.querySelector('#newMessage').value;
-                  console.log('adding a message********************')
-                  socket.emit('addMessage', {'message': message, 'username': username});
-              };
-
-            // If channel already exists
+                // If channel already exists
                 socket.on('usedChannelname', data => {
                     console.log('Used Channel NAME')
                     alert('Channel already exists!');
                 });
 
-            // Add channel to list if it is a unique name
+                // Add channel to select if it is a unique name
             socket.on('channel_Addtolist', data => {
                 console.log('channel_Addtolist')
-                // // Create new item li for list
-                const li = document.createElement('li');
-                li.setAttribute("class", "list-group-item");
-                li.innerHTML = document.querySelector('#newChannel').value;
+                // // Create new item option for select
+                var option = document.createElement('option');
+                option.setAttribute("class", "form-control form-control-sm");
+                option.innerHTML = `${data.channelName}`;
 
-                // Add new item to channel list
-                document.querySelector('#channelList').append(li);
+                // Add new item to channel select
+                document.querySelector('#channelSelect').append(option);
             });
 
+            // Message Sockets
+
+            // Add message to current channel
+            document.querySelector('#sendMessage').onclick = () => {
+                var username = document.createElement('username')
+                username = localStorage.getItem('username');
+                const message = `${displayTime()} ~ ${username}: ${document.querySelector('#newMessage').value}`;
+                console.log('adding a message********************')
+                var currentChannel = document.createElement('currentChannel');
+                currentChannel = localStorage.getItem('currentChannel');
+                socket.emit('addMessage', {'message': message, 'username': username, 'currentChannel': currentChannel});
+            };
+        });
     // By default, submit button is disabled
     document.querySelector('#submit').disabled = true;
 
@@ -71,6 +91,13 @@ document.addEventListener('DOMContentLoaded', () => {
             document.querySelector('#submit').disabled = false;
         else
             document.querySelector('#submit').disabled = true;
+    };
+
+                // Channel select
+    document.querySelector('#channelSelect').onchange = function() {
+        var currentChannel = document.createElement('currentChannel');
+        currentChannel = this.options[this.selectedIndex].innerHTML;
+        localStorage.setItem('currentChannel', currentChannel);
     };
 
     document.querySelector('#userform').onsubmit = () => {
@@ -120,12 +147,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Initialize new request
             const request = new XMLHttpRequest();
-            const newMessage = document.querySelector('#newMessage').value;
+            const newMessages = document.querySelector('#newMessage').value;
+            var currentChannel = localStorage.getItem('currentChannel')
 
             request.open('POST', '/grabMessage');
 
             // Callback function for when request completes
-              request.onload = () => {
+                request.onload = () => {
 
                   // Extract JSON data from request
                   const data = JSON.parse(request.responseText);
@@ -133,21 +161,26 @@ document.addEventListener('DOMContentLoaded', () => {
                   // Update message list
                   var message = document.createElement('message');
                   message = data.messages;
-                  message.setAttribute("class", "list-group-item");
+
+                  var li = document.createElement('li')
+                  li.setAttribute("class", "list-group-item");
+                  li.setAttribute("id", "messageLi");
+                  document.querySelector('#messageBox').append(li);
                   document.querySelector('#messagesLi').innerHTML = message;
 
-              }
+                }
 
             // Clear input field and disable button again
             document.querySelector('#newMessage').value = '';
 
             // Add data to send with request
             const data = new FormData();
-            data.append('newMessages', newMessage);
+            data.append('newMessages', newMessages);
+            data.append('currentChannel', currentChannel);
 
             // Stop form from submitting and send request
             request.send(data);
             return false;
         };
-    });
+
 });

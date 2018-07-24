@@ -33,6 +33,7 @@ input
 #channelForms
 {
     margin-left: 5%;
+    outline: 0;
 }
 
 /*#channelForms2*/
@@ -63,6 +64,10 @@ input
     margin-left: 34%;
 }
 
+#newChannel, #channelSelect
+{
+    margin-left: 30%;
+}
 
 #newChannel
 {
@@ -73,7 +78,7 @@ input
 {
     margin-top: 5%;
     font-size: 12px;
-    margin-left: 26%;
+    margin-left: 80%;
     border-radius: 10px;
     background-color: #f5ecdc;
 }
@@ -160,6 +165,11 @@ input
     width: 100%;
 }
 
+#channelSelect
+{
+    width: 70%;
+}
+
 #newMessage
 {
     width: 65%;
@@ -171,8 +181,7 @@ input
     background-color: #f5ecdc;
 }
 
-/*#feedback { font-size: 1.4em; }*/
-/*#selectable .ui-selecting { background: #FECA40; }*/
-/*#selectable .ui-selected { background: #F39814; color: white; }*/
-/*#selectable { list-style-type: none; margin: 0; padding: 0; width: 60%; }*/
-/*#selectable li { margin: 3px; padding: 0.4em; font-size: 1.4em; height: 18px; }*/
+#channelHeader
+{
+    margin-left: 20%
+}

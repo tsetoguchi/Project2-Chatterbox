@@ -38,12 +38,16 @@
         <div id="channeldiv">
             <div id="channelForms">
                 <h1 id="channelHeader" value="#b3f4f5" data-color="red">Channels</h1>
-
-                <ul class="list-group" id="channelList">
-                    {% for key, value in channel_dict.items() %}
-                        <li class="list-group-item">{{ key }}</li>
-                    {% endfor %}
-                </ul>
+                    <select id="channelSelect" class="form-control form-control-sm">
+                        {% for key, value in channel_dict.items() %}
+                            <option>{{ key }}</option>
+                        {% endfor %}
+                    </select>
+                <!--<ul class="list-group" id="channelList">-->
+                <!--    {% for key, value in channel_dict.items() %}-->
+                <!--        <li class="list-group-item">{{ key }}</li>-->
+                <!--    {% endfor %}-->
+                <!--</ul>-->
                     <div id="channelForms2">
                          <form id="channelAdd">
                                <input id="newChannel" autocomplete="off" autofocus placeholder="New channel" maxlength="16" type="text">
