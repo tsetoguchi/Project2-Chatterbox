@@ -29,7 +29,7 @@ pip install -r requirements.txt
    python application.py
    ```
    
-##Usage:
+## Usage:
 Open the app in your browser.
 
 1. Enter a temporary username to start chatting.
@@ -38,5 +38,5 @@ Open the app in your browser.
 
 3. Send messages and manage your experience.
 
-##License:
+## License:
 This project is licensed under the MIT License
