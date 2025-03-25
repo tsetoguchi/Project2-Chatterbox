@@ -1,3 +1,42 @@
-This project is a single page chat messaging application that allows for real time messaging through the usage of sockets. 
+# Project 2: Chatterbox
 
-Upon visiting the page, users will be prompted to enter a temporary username (users will not be able to join with no username), once the submit, they will be greeted with the rest of the elements in the page. I incorporated jquery such that leaving the page after selecting a channel and then returning to the page will automatically display the last channel that was selected by the user, if no channel was previously selected, the # general chat is displayed. The chat message contains the username of the user who posted the message, and the timestamp of when the messaage was posted. Furthermore users are allowed to create their own channels in a selector - updated in real time - and swap between the channels they have created. As for the personal touch specification, I decided to give users the ability to remove messages from the server despite whether it is their message; however, users may only remove messages that have been posted while they were present within the channel. I also included some CSS animations to make the user experience of the website more friendly.
+Chatterbox is a real-time chat messaging application that allows users to create channels, send messages, and manage the chat experience. The app supports the creation of personalized channels, real-time message updates, and user message deletion.
+
+## Features:
+- **Username Prompt**: Users must choose a temporary username before entering the chat.
+- **Real-Time Messaging**: Users can send and receive messages instantly.
+- **Channel Management**: Users can create and switch between channels.
+- **Message Deletion**: Users can delete messages they sent in any channel they are present in.
+- **Persistent Channel**: Channel preference persists when users leave and return.
+
+## Technologies Used:
+- **Frontend**: HTML, CSS, JavaScript (with jQuery)
+- **Backend**: Python
+- **WebSocket** for real-time communication
+
+## Installation:
+1. Clone the repository.
+   ```bash
+   git clone https://github.com/tsetoguchi/Project2-Chatterbox.git
+   ```
+2. Navigate to the project directory and install dependencies:
+  ```bash
+cd Project2-Chatterbox
+pip install -r requirements.txt
+```
+3. Run the application:
+   ```bash
+   python application.py
+   ```
+   
+##Usage:
+Open the app in your browser.
+
+1. Enter a temporary username to start chatting.
+
+2. Create new channels or join existing ones.
+
+3. Send messages and manage your experience.
+
+##License:
+This project is licensed under the MIT License
